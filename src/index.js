@@ -1,4 +1,4 @@
-const endpoint = "http://localhost:3000"
+const endpoint = "http://localhost:3000";
 
 function handleClick(e) {
   e.preventDefault();
@@ -27,7 +27,7 @@ function handleClick(e) {
     })
 }
 
-function getData() {
+function getData() {  
   /* 
     fetchDataを呼び出し、responseのステータスを元にデータ取得成功か失敗かを判断しましょう。 
     成功ならpropertyDataをPromise.resolveで返します。
@@ -37,7 +37,34 @@ function getData() {
 
 
 function fetchData() {
-  const url = `${endpoint}/properties/1`
+  const url = `${endpoint}/properties/1`;
+
+  fetch(url)
+  .then((response) => {
+    const users = {
+      users: [
+        {
+          id: 1,
+          propertyName: '1BR Japanese-style Private Room near Kyoto Station',
+          propertyType: 'private',
+          cancelPolicy: 'strict',
+          roomNum: 1,
+          bathroomNum: 1,
+          priceInDollars: 50,
+          host: {
+            id: 1,
+            firstName: 'Tom'
+          }
+        }        
+      ]
+    }    
+  })
+  .catch((error) => {
+    const errMessage = {
+      message: "物件が見つかりませんでした。"
+    }    
+  });
+
   /* 
     fetchを使ってデータを取得します。
   */
