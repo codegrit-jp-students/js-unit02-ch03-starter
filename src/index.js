@@ -27,48 +27,42 @@ function handleClick(e) {
     })
 }
 
-function getData() {  
+// function getData() {
+//   return fetchData().then((res) => {
+//     if (res.status === 200) {
+//       return Promise.resolve(res.jsonData);
+//     } else {
+//       return Promise.reject(res.jsonData.message);
+//     }
+//   })
+// }
   /* 
     fetchDataを呼び出し、responseのステータスを元にデータ取得成功か失敗かを判断しましょう。 
     成功ならpropertyDataをPromise.resolveで返します。
     失敗ならエラーメッセージをPromise.rejectで返します。
   */
+
+
+function fetchData(userId) {
+  const url = `${endpoint}/properties/${userId}`;
+  let jsonData = JSON.stringify(propertyData);
+  fetch(url, jsonData);
+    if (userId === 1) {
+      resolve({
+        status: 200,
+        propertyData: jsonData
+      });
+    } else {
+      reject({
+        status: 403,
+        message: jsonData.message
+      });
+    }
 }
-
-
-function fetchData() {
-  const url = `${endpoint}/properties/1`;
-
-  fetch(url)
-  .then((response) => {
-    const users = {
-      users: [
-        {
-          id: 1,
-          propertyName: '1BR Japanese-style Private Room near Kyoto Station',
-          propertyType: 'private',
-          cancelPolicy: 'strict',
-          roomNum: 1,
-          bathroomNum: 1,
-          priceInDollars: 50,
-          host: {
-            id: 1,
-            firstName: 'Tom'
-          }
-        }        
-      ]
-    }    
-  })
-  .catch((error) => {
-    const errMessage = {
-      message: "物件が見つかりませんでした。"
-    }    
-  });
-
   /* 
     fetchを使ってデータを取得します。
   */
-}
+
 
 {
   const button1 = document.getElementById('button1');

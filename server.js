@@ -44,6 +44,7 @@ app.get('/properties/:id', (req, res) => {
       firstName: 'Tom'
     }
   }
+  
   if (propertyId === 1) {
     res.status(200).send({
       propertyData
