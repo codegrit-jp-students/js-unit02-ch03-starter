@@ -27,15 +27,18 @@ function handleClick(e) {
     })
 }
 
-// function getData() {
-//   return fetchData().then((res) => {
-//     if (res.status === 200) {
-//       return Promise.resolve(res.jsonData);
-//     } else {
-//       return Promise.reject(res.jsonData.message);
-//     }
-//   })
-// }
+function getData() {
+  return fetchData().then((res) => {
+    const json = res.json();
+    if (res.status !== 200) {
+      return Promise.reject(new Error(res.message)).then((err) => {
+        console.log(err);
+      });
+    } else {
+      return Promise.resolve(json);
+    }
+  })
+}
   /* 
     fetchDataを呼び出し、responseのステータスを元にデータ取得成功か失敗かを判断しましょう。 
     成功ならpropertyDataをPromise.resolveで返します。
@@ -43,21 +46,15 @@ function handleClick(e) {
   */
 
 
-function fetchData(userId) {
+function fetchData(userId = 1) {
   const url = `${endpoint}/properties/${userId}`;
-  let jsonData = JSON.stringify(propertyData);
-  fetch(url, jsonData);
-    if (userId === 1) {
-      resolve({
-        status: 200,
-        propertyData: jsonData
-      });
-    } else {
-      reject({
-        status: 403,
-        message: jsonData.message
-      });
-    }
+  return fetch(url, {
+    method: "get",
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json'
+    },
+  });
 }
   /* 
     fetchを使ってデータを取得します。
