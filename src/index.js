@@ -31,7 +31,8 @@ function getData() {
   return fetchData().then((res) => {
     const json = res.json();
     if (res.status !== 200) {
-      return Promise.reject(new Error(res.message)).then((err) => {
+      return Promise.reject(new Error(res.message)).then(() => {
+      }, (err) => {
         console.log(err);
       });
     } else {
