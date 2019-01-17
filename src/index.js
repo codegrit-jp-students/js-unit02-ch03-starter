@@ -31,9 +31,9 @@ function getData() {
   return fetchData().then((res) => {
     const json = res.json();
     if (res.status !== 200) {
-      return Promise.reject(new Error(res.message)).then(resolved, rejected);
+      return Promise.reject(new Error(res.message));
     } else {
-      return Promise.resolve(json);
+      return json;
     }
   })
 }
@@ -51,13 +51,9 @@ function fetchData(userId = 1) {
     headers: {
       'Accept': 'application/json',
       'Content-Type': 'application/json'
-    },
+    }
   });
 }
-
-debugger;
-
-
   /* 
     fetchを使ってデータを取得します。
   */
