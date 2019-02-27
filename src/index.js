@@ -1,4 +1,4 @@
-const endpoint = "http://localhost:3000"
+const endpoint = "http://localhost:3000";
 
 function handleClick(e) {
   e.preventDefault();
@@ -28,20 +28,36 @@ function handleClick(e) {
 }
 
 function getData() {
+  return fetchData().then((res) => {
+    const json = res.json();
+    if (res.status !== 200) {
+      return Promise.reject(new Error(res.message));
+    } else {
+      return json;
+    }
+  })
+}
   /* 
     fetchDataを呼び出し、responseのステータスを元にデータ取得成功か失敗かを判断しましょう。 
     成功ならpropertyDataをPromise.resolveで返します。
     失敗ならエラーメッセージをPromise.rejectで返します。
   */
+
+
+function fetchData(userId = 1) {
+  const url = `${endpoint}/properties/${userId}`;
+  return fetch(url, {
+    method: "get",
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json'
+    }
+  });
 }
-
-
-function fetchData() {
-  const url = `${endpoint}/properties/1`
   /* 
     fetchを使ってデータを取得します。
   */
-}
+
 
 {
   const button1 = document.getElementById('button1');
