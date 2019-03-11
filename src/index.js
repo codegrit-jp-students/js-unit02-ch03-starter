@@ -49,7 +49,7 @@ function getData() {
 
 
 async function fetchData() {
-  const url = `${endpoint}/properties/2`
+  const url = `${endpoint}/properties/1`
   /* 
     fetchを使ってデータを取得します。
   */
