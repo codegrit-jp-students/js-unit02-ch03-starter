@@ -1,3 +1,5 @@
+import { rejects } from "assert";
+
 const endpoint = "http://localhost:3000"
 
 function handleClick(e) {
@@ -33,14 +35,30 @@ function getData() {
     成功ならpropertyDataをPromise.resolveで返します。
     失敗ならエラーメッセージをPromise.rejectで返します。
   */
+  return fetchData().then((data) => {
+    const json = data.json();
+    if (data.status === 200) {
+      return json
+    }
+    return json.then((data) => {
+      return Promise.reject(data);
+    })
+  });
 }
 
 
-function fetchData() {
+async function fetchData() {
   const url = `${endpoint}/properties/1`
   /* 
     fetchを使ってデータを取得します。
   */
+  return await fetch(url, {
+    method: 'get',
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json'
+    }
+  })
 }
 
 {
