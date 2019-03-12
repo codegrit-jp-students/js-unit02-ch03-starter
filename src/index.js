@@ -39,11 +39,10 @@ function getData() {
     const json = data.json();
     if (data.status === 200) {
       return json
-    } else {
-      return json.then((data) => {
-        return Promise.reject(data);
-      })
     }
+    return json.then((data) => {
+      return Promise.reject(data);
+    })
   });
 }
 
